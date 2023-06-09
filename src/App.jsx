@@ -1,21 +1,20 @@
-import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import Search from "./pages/Search";
+import Compare from "./pages/Compare";
 
 function App() {
-  const [result, setResult] = useState({});
   
-  const handleSearch = async () => {
-    console.log("searching");
-    const response = await fetch(
-      `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=9MD6Im68ci8QJf3fHSBycrAbvkNNFKGcnr2bMtJ2&query=Cheddar%20Cheese`
-    );
-    const jsonData = await response.json();
-    setResult(jsonData);
-    console.log(jsonData);
-  };
-
   return (
     <>
-      <button onClick={handleSearch}>Search</button>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path = "search" element = {<Search />} />
+          <Route path = "compare" element = {<Compare />} />
+        </Route>
+      </Routes>
     </>
   )
 }
