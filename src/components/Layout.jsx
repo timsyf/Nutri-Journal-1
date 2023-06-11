@@ -6,9 +6,9 @@ export default function Layout() {
     <>
       <Navbar />
       <div style={{ display: "flex" }}>
-        <aside>Menu</aside>
+        <aside>Nutri Journal</aside>
         <main>
-          <h2>Content</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           <Outlet />
         </main>
       </div>
