@@ -8,14 +8,12 @@ export default function Search() {
 
   const [search, setSearch] = useState('');
   const [resultsPerPage, setResultsPerPage] = useState('50');
-  const [pageNo, setPageNumber] = useState('1');
-  const [sortBy, setSortBy] = useState('asc');
-  const [compare, setCompare] = useState([]);
-  const [compareList, updateCompareList] = useState([]);
+  const [pageNo, setPageNumber] = useState('');
 
-  async function handleSearch() {
+  async function handleSearch(event) {
+    event.preventDefault();
     const response = await fetch("https://api.nal.usda.gov/fdc/v1/foods/search?api_key=9MD6Im68ci8QJf3fHSBycrAbvkNNFKGcnr2bMtJ2&query=" + encodeURIComponent(search) +
-    "&sortOrder=" + encodeURIComponent(sortBy) + "&dataType=Branded&pageSize=" + encodeURIComponent(resultsPerPage) + "&pageNumber=" + encodeURIComponent(pageNo));
+    "&dataType=Branded&pageSize=" + encodeURIComponent(resultsPerPage) + "&pageNumber=" + encodeURIComponent(pageNo));
     
     const data = await response.json();
     const fd = data.foods;
@@ -35,26 +33,26 @@ export default function Search() {
     setResultsPerPage(e.target.value);
   }
 
-  function handleSortBy(e) {
-    setSortBy(e.target.value);
+  function pageNumber() {
+    if(parseInt(foodlist.totalPages) * parseInt(resultsPerPage) > 10000) {
+      return 10000 / parseInt(resultsPerPage);
+    }
+    else {
+      return foodlist.totalPages;
+    }
   }
 
   return (
     <>
     <h1>Search</h1>
-    <input type="text" id="search" name="search" placeholder="Broccoli, Salmon, Cheese, etc.." onChange={handleSearchChange}></input><br></br>
-    <input type="text" id="resultsPerPage" name="resultsPerPage" placeholder="1 - 200" onChange={handleResultsPerPageChange}></input><br></br>
-
-    <label>Sort by: </label>
-    <select name="sorts" id="sorts" onChange={handleSortBy}>
-      <option value="asc">Ascending</option>
-      <option value="desc">Descending</option>
-    </select>
-
-    <input type="text" id="page" name="page" placeholder="0, 1, 100.." onChange={handlePageNumberChange}></input><br></br>
-    <input type="button" value={"Search"} onClick={handleSearch}></input><br></br>
+    <form onSubmit = {handleSearch}>
+      <input type="text" id="search" name="search" placeholder="Broccoli, Salmon, Cheese, etc.." onChange={handleSearchChange}></input><br></br>
+      <input type="text" id="resultsPerPage" name="resultsPerPage" placeholder="Results per page" onChange={handleResultsPerPageChange}></input><br></br>
+      <input type="text" id="page" name="page" placeholder="Page No" onChange={handlePageNumberChange}></input><br></br>
+      <input type="submit" value={"Search"}></input><br></br>
+    </form>
     
-    <label>Maximum Pages: {foodlist.totalPages}</label>
+    <label>Maximum Pages: {pageNumber()}</label>
 
     <table>
       <tbody>
