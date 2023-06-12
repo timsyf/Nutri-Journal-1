@@ -1,4 +1,3 @@
-import SearchList from "../components/SearchList";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 
@@ -8,14 +7,15 @@ export default function Search() {
   const [foodlist, setFoodList] = useState([]);
 
   const [search, setSearch] = useState('');
-  const [resultsPerPage, setResultsPerPage] = useState('');
-  const [pageNo, setPageNumber] = useState('');
-
-  const navigate = useNavigate();
+  const [resultsPerPage, setResultsPerPage] = useState('50');
+  const [pageNo, setPageNumber] = useState('1');
+  const [sortBy, setSortBy] = useState('asc');
+  const [compare, setCompare] = useState([]);
+  const [compareList, updateCompareList] = useState([]);
 
   async function handleSearch() {
     const response = await fetch("https://api.nal.usda.gov/fdc/v1/foods/search?api_key=9MD6Im68ci8QJf3fHSBycrAbvkNNFKGcnr2bMtJ2&query=" + encodeURIComponent(search) +
-    "&sortOrder=asc&dataType=Branded&pageSize=10&pageNumber=" + encodeURIComponent(pageNo));
+    "&sortOrder=" + encodeURIComponent(sortBy) + "&dataType=Branded&pageSize=" + encodeURIComponent(resultsPerPage) + "&pageNumber=" + encodeURIComponent(pageNo));
     
     const data = await response.json();
     const fd = data.foods;
@@ -32,7 +32,11 @@ export default function Search() {
   }
 
   function handleResultsPerPageChange(e) {
-    setPageNumber(e.target.value);
+    setResultsPerPage(e.target.value);
+  }
+
+  function handleSortBy(e) {
+    setSortBy(e.target.value);
   }
 
   return (
@@ -40,9 +44,16 @@ export default function Search() {
     <h1>Search</h1>
     <input type="text" id="search" name="search" placeholder="Broccoli, Salmon, Cheese, etc.." onChange={handleSearchChange}></input><br></br>
     <input type="text" id="resultsPerPage" name="resultsPerPage" placeholder="1 - 200" onChange={handleResultsPerPageChange}></input><br></br>
-    <input type="text" id="resultsPerPage" name="resultsPerPage" placeholder="1 - 200" onChange={handleResultsPerPageChange}></input><br></br>
+
+    <label>Sort by: </label>
+    <select name="sorts" id="sorts" onChange={handleSortBy}>
+      <option value="asc">Ascending</option>
+      <option value="desc">Descending</option>
+    </select>
+
     <input type="text" id="page" name="page" placeholder="0, 1, 100.." onChange={handlePageNumberChange}></input><br></br>
-    <input type="submit" value={"Search"} onClick={handleSearch}></input><br></br>
+    <input type="button" value={"Search"} onClick={handleSearch}></input><br></br>
+    
     <label>Maximum Pages: {foodlist.totalPages}</label>
 
     <table>

@@ -12,6 +12,10 @@ export default function Navbar() {
       <h1>Search</h1>
       </NavLink>
 
+      <NavLink to="/compare">
+      <h1>Compare</h1>
+      </NavLink>
+
       <NavLink to="/journal">
       <h1>Journal</h1>
       </NavLink>
