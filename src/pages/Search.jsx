@@ -1,5 +1,6 @@
 import SearchList from "../components/SearchList";
-import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 
 export default function Search() {
 
@@ -7,20 +8,19 @@ export default function Search() {
   const [foodlist, setFoodList] = useState([]);
 
   const [search, setSearch] = useState('');
+  const [resultsPerPage, setResultsPerPage] = useState('');
   const [pageNo, setPageNumber] = useState('');
 
-  const [compareCheckbox, setCompareCheckbox] = useState(false);
+  const navigate = useNavigate();
 
-  async function getFood() {
+  async function handleSearch() {
     const response = await fetch("https://api.nal.usda.gov/fdc/v1/foods/search?api_key=9MD6Im68ci8QJf3fHSBycrAbvkNNFKGcnr2bMtJ2&query=" + encodeURIComponent(search) +
-    "&sortOrder=asc&dataType=Branded&pageSize=25&pageNumber=" + encodeURIComponent(pageNo));
+    "&sortOrder=asc&dataType=Branded&pageSize=10&pageNumber=" + encodeURIComponent(pageNo));
     
     const data = await response.json();
     const fd = data.foods;
     setFoodList(data);
     setFoodData(fd);
-    
-    console.log(data);
   }
 
   function handleSearchChange(e) {
@@ -31,50 +31,43 @@ export default function Search() {
     setPageNumber(e.target.value);
   }
 
-  function handleSearch() {
-    console.log("Searching Food");
-    getFood();
+  function handleResultsPerPageChange(e) {
+    setPageNumber(e.target.value);
   }
 
-  const handleCompare = event => {
-    if (event.target.checked) {
-      console.log('Checkbox is checked');
-    } else {
-      console.log('Checkbox is NOT checked');
-    }
-    setCompareCheckbox(current => !current);
-  };
+  return (
+    <>
+    <h1>Search</h1>
+    <input type="text" id="search" name="search" placeholder="Broccoli, Salmon, Cheese, etc.." onChange={handleSearchChange}></input><br></br>
+    <input type="text" id="resultsPerPage" name="resultsPerPage" placeholder="1 - 200" onChange={handleResultsPerPageChange}></input><br></br>
+    <input type="text" id="resultsPerPage" name="resultsPerPage" placeholder="1 - 200" onChange={handleResultsPerPageChange}></input><br></br>
+    <input type="text" id="page" name="page" placeholder="0, 1, 100.." onChange={handlePageNumberChange}></input><br></br>
+    <input type="submit" value={"Search"} onClick={handleSearch}></input><br></br>
+    <label>Maximum Pages: {foodlist.totalPages}</label>
 
-    return (
-      <>
-      <h1>Search</h1>
-      <input type="text" id="search" name="search" placeholder="Broccoli, Salmon, Cheese, etc.." onChange={handleSearchChange}></input>
-      <input type="submit" value={"Search"} onClick={handleSearch}></input>
-      
-      <input type="text" id="page" name="page" placeholder="0, 1, 100.." onChange={handlePageNumberChange}></input>
-      <label>Maximum Pages: {foodlist.totalPages}</label>
+    <table>
+      <tbody>
+        <tr>
+          <th>GTIN/UPC</th>
+          <th>Description</th>
+          <th>Branded Food Category</th>
+          <th>Brand Owner</th>
+          <th>Brand</th>
+          <th>Market Country</th>
+        </tr>
 
-      <input type="checkbox" id="compare" name="compare" onChange={handleCompare}></input>
-
-      <label>Compare</label>
-      {/* Shows when checkbox is ticked */}
-      <input type="text" id="descripton" name="descripton" placeholder="First Item Description" readOnly></input>
-      {/* Shows when checkbox is ticked */}
-      <input type="text" id="brandowner" name="brandowner" placeholder="First Item Brand Owner" readOnly></input>
-
-      <table>
-        <tbody>
-          <tr>
-            <th>GTIN/UPC</th>
-            <th>Description</th>
-            <th>Branded Food Category</th>
-            <th>Brand Owner</th>
-            <th>Brand</th>
-            <th>Market Country</th>
-          </tr>
-          <SearchList fd={fooddata}/>
-        </tbody>
-      </table>
-      </>
-    );
+        {fooddata.map((fd) => (
+        <tr key={fd.fdcId}>
+          <td><Link to={"./details/" + fd.fdcId}>{fd.fdcId}</Link></td>
+          <td>{fd.description}</td>
+          <td>{fd.foodCategory}</td>
+          <td>{fd.brandOwner}</td>
+          <td>{fd.brandName}</td>
+          <td>{fd.marketCountry}</td>
+        </tr>
+        ))}
+      </tbody>
+    </table>
+    </>
+  );
   }
