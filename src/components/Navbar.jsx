@@ -2,25 +2,14 @@ import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <nav style={{ display: "flex" }}>
+    <nav className="Navbar">
+      <ul>
+        <li><NavLink to="/">Home</NavLink></li>
+        <li><NavLink to="/search">Search</NavLink></li>
+        <li><NavLink to="/compare">Comparator</NavLink></li>
+        <li><NavLink to="/journal">Journal</NavLink></li>
+      </ul>
 
-      <NavLink to="/">
-        <h1>Home</h1>
-      </NavLink>
-
-      <NavLink to="/search">
-      <h1>Search</h1>
-      </NavLink>
-
-      <NavLink to="/compare">
-      <h1>Compare</h1>
-      </NavLink>
-
-      <NavLink to="/journal">
-      <h1>Journal</h1>
-      </NavLink>
-
-      <hr />
     </nav>
   );
 }

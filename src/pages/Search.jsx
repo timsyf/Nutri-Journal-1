@@ -1,5 +1,5 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import SearchList from "../components/SearchList";
 
 export default function Search() {
 
@@ -10,6 +10,8 @@ export default function Search() {
   const [resultsPerPage, setResultsPerPage] = useState('50');
   const [pageNo, setPageNumber] = useState('');
 
+  const maximumPageRef = useRef(null);
+
   async function handleSearch(event) {
     event.preventDefault();
     const response = await fetch("https://api.nal.usda.gov/fdc/v1/foods/search?api_key=9MD6Im68ci8QJf3fHSBycrAbvkNNFKGcnr2bMtJ2&query=" + encodeURIComponent(search) +
@@ -19,6 +21,7 @@ export default function Search() {
     const fd = data.foods;
     setFoodList(data);
     setFoodData(fd);
+    setPageNoShow(pageNumber());
   }
 
   function handleSearchChange(e) {
@@ -41,42 +44,19 @@ export default function Search() {
       return foodlist.totalPages;
     }
   }
-
+  
   return (
     <>
-    <h1>Search</h1>
     <form onSubmit = {handleSearch}>
       <input type="text" id="search" name="search" placeholder="Broccoli, Salmon, Cheese, etc.." onChange={handleSearchChange}></input><br></br>
       <input type="text" id="resultsPerPage" name="resultsPerPage" placeholder="Results per page" onChange={handleResultsPerPageChange}></input><br></br>
       <input type="text" id="page" name="page" placeholder="Page No" onChange={handlePageNumberChange}></input><br></br>
       <input type="submit" value={"Search"}></input><br></br>
+      <label>Maximum Pages: <input ref={maximumPageRef}></input></label>
     </form>
+
+    <SearchList fd={fooddata} />
     
-    <label>Maximum Pages: {pageNumber()}</label>
-
-    <table>
-      <tbody>
-        <tr>
-          <th>GTIN/UPC</th>
-          <th>Description</th>
-          <th>Branded Food Category</th>
-          <th>Brand Owner</th>
-          <th>Brand</th>
-          <th>Market Country</th>
-        </tr>
-
-        {fooddata.map((fd) => (
-        <tr key={fd.fdcId}>
-          <td><Link to={"./details/" + fd.fdcId}>{fd.fdcId}</Link></td>
-          <td>{fd.description}</td>
-          <td>{fd.foodCategory}</td>
-          <td>{fd.brandOwner}</td>
-          <td>{fd.brandName}</td>
-          <td>{fd.marketCountry}</td>
-        </tr>
-        ))}
-      </tbody>
-    </table>
     </>
   );
   }

@@ -1,3 +1,59 @@
-.hide {
-  display: none;
+.Navbar {
+  display: flex;
+  background-color: #333333;
+}
+.Navbar ul {
+  padding: 0;
+  margin: 0;
+}
+
+.Navbar ul li {
+  float: left;
+  display: flex;
+  padding: 20px 30px;
+}
+
+.Navbar ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+main {
+  width: 1200px;
+  position: absolute;
+  top: 5em;
+  left: 50%;
+  transform: translate(-50%, 0);
+  padding: 10px;
+}
+
+input[type=text] {
+  margin: 10px 0px;
+  padding: 10px;
+}
+
+input[type=submit] {
+  margin: 10px 0px;
+  padding: 10px;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  padding: 20px 30px;
+}
+
+ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.compare_ul {
+  float: left;
 }
