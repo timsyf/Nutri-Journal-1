@@ -25,6 +25,7 @@ export default function SearchList(props) {
                 <td>{fd.brandOwner}</td>
                 <td>{fd.brandName}</td>
                 <td>{fd.marketCountry}</td>
+                <td><input type="submit" value={"+"}></input></td>
                 </tr>
                 ))}
             </tbody>
