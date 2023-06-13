@@ -7,6 +7,7 @@ export default function Navbar() {
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/search">Search</NavLink></li>
         <li><NavLink to="/compare">Comparator</NavLink></li>
+        <li><NavLink to="/favourite">Favourite</NavLink></li>
         <li><NavLink to="/journal">Journal</NavLink></li>
       </ul>
 

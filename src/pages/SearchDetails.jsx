@@ -7,14 +7,28 @@ export default function SearchDetails() {
     const { id } = useParams()
 
     const [foodDataNutrients, setFoodDataNutrients] = useState([]);
-    let nutrientsCount = 0;
+
+    const [status, setStatus] = useState("");
 
     useEffect(() => {
         async function getFoodData() {
-          const response = await fetch(`https://api.nal.usda.gov/fdc/v1/food/${encodeURIComponent(id)}?format=abridged&api_key=9MD6Im68ci8QJf3fHSBycrAbvkNNFKGcnr2bMtJ2`);
+          setStatus("loading");
+          try {
+            const response = await fetch(`https://api.nal.usda.gov/fdc/v1/food/${encodeURIComponent(id)}?format=abridged&api_key=9MD6Im68ci8QJf3fHSBycrAbvkNNFKGcnr2bMtJ2`);
+
+          if (!response.ok) {
+            throw new Error("Network response was not OK");
+          }
+          
           const data = await response.json();
           setFoodData(data);
           setFoodDataNutrients(data.foodNutrients);
+
+          setStatus("");
+
+          } catch (error) {
+              setStatus("error");
+          }
         }
         getFoodData();
       }, []);
@@ -22,8 +36,8 @@ export default function SearchDetails() {
       return (
           <>
           
-          <h1>Search Details</h1><Link to={"../../search"}><input type="submit" value={"Back"}></input></Link>
-
+          <h1>Search Details</h1><Link to={"../../search"}><input type="submit" value={"Back"}></input></Link><br></br>
+          <label>{status}</label>
           <ul>
             <li><label>ID:</label><br></br><input type="text" name={foodData.fdcId} id={foodData.fdcId} placeholder={foodData.fdcId} readOnly></input></li>
             <li><label>Description:</label><br></br><input type="text" name={foodData.fdcId} id={foodData.description} placeholder={foodData.description} readOnly></input></li>
