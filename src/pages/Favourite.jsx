@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { useState, useEffect } from "react";
 import Airtable from "airtable";
 
@@ -21,8 +22,8 @@ export default function Favourite() {
 
         const data = await response.json();
 
-        setTemp(data);
-        console.log(data);
+        setTemp(data.records);
+        console.log(data.records);
         setStatus("");
       } catch (error) {
           setStatus("error");
@@ -40,19 +41,19 @@ export default function Favourite() {
               <tr>
               <th>GTIN/UPC</th>
               <th>Description</th>
-              <th>Branded Food Category</th>
               <th>Brand Owner</th>
               <th>Brand</th>
+              <th>Market Country</th>
               </tr>
 
-              {fooddata.map((fd) => (
+              {temp.map((fd) => (
               <tr key={fd.fdcId}>
-              <td><Link to={"./details/" + fd.fdcId}>{fd.fdcId}</Link></td>
-              <td>{fd.description}</td>
-              <td>{fd.foodCategory}</td>
-              <td>{fd.brandOwner}</td>
-              <td>{fd.brandName}</td>
-              <td>{fd.marketCountry}</td>
+                <td><Link to={"./details/" + fd.fields.FdcId}>{fd.fields.FdcId}</Link></td>
+                <td>{fd.fields.Description}</td>
+                <td>{fd.fields.BrandOwner}</td>
+                <td>{fd.fields.Brand}</td>
+                <td>{fd.fields.MarketCountry}</td>
+                <td><input type="submit" value={"-"}></input></td>
               </tr>
               ))}
           </tbody>

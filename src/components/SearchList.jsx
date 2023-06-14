@@ -1,8 +1,46 @@
 import { Link } from "react-router-dom"
+import { useState, useEffect } from "react";
 
 export default function SearchList(props) {
 
+    const [temp, addHoliday] = useState([]);
+
     const fooddata = props.fd;
+
+    const payload2 = {
+        FdcId: 15,
+        Description: "ASD",
+        BrandOwner: "ASD",
+        Brand: "ASD",
+        MarketCountry: "ASD"
+      };
+      
+      const payload = {
+        "records": [{
+            "fields": {
+                "FdcId": 15,
+                "Description": "ASD",
+                "BrandOwner": "ASD",
+                "Brand": "ASD",
+                "MarketCountry": "ASD"
+            }
+        }]
+    }
+      
+    useEffect(() => {
+          async function createHoliday(payload) {
+            const response = await fetch("https://api.airtable.com/v0/appuSOtQ4A8knKIU1/tbl1e1gi4Hl0ClJKC?api_key=keyG5wgdTEwwoo4hS", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(payload),
+            });
+            const jsonData = await response.json();
+            addHoliday(jsonData);
+          }
+          createHoliday(payload);
+    }, []);
 
     return (
         <>

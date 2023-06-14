@@ -7,6 +7,7 @@ import Compare from "./pages/Compare";
 import Favourite from "./pages/Favourite";
 import Journal from "./pages/Journal";
 import "./App.css";
+import FavouriteDetails from "./pages/FavouriteDetails";
 
 //Airtable Token:
 //patImqcG9m0CCc6vw.22cf246850d5a19636fd556b21c7b6a54999d15cd23d4e5b76b862314dff8c7a
@@ -26,6 +27,7 @@ function App() {
 
           <Route path = "compare" element = {<Compare />} />
           <Route path = "favourite" element = {<Favourite />} />
+          <Route path = "favourite/details/:id" element = {<FavouriteDetails />} />
           <Route path = "journal" element = {<Journal />} />
           <Route path="/*" element={<h1>Error 404: No page found</h1>} />
         </Route>
