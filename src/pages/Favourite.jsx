@@ -30,12 +30,21 @@ export default function Favourite() {
       }
     }
     fetchSearch();
+
+
+
+
+
+
+
+
+
   }, []);
 
     return (
       <>
       <h1>Favourite</h1>
-
+      <label>{status}</label>
       <table className="table">
           <tbody>
               <tr>

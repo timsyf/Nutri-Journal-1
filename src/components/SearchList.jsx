@@ -3,44 +3,40 @@ import { useState, useEffect } from "react";
 
 export default function SearchList(props) {
 
-    const [temp, addHoliday] = useState([]);
+    const [favourites, addFavourites] = useState([]);
 
     const fooddata = props.fd;
 
-    const payload2 = {
-        FdcId: 15,
-        Description: "ASD",
-        BrandOwner: "ASD",
-        Brand: "ASD",
-        MarketCountry: "ASD"
-      };
-      
-      const payload = {
-        "records": [{
-            "fields": {
-                "FdcId": 15,
-                "Description": "ASD",
-                "BrandOwner": "ASD",
-                "Brand": "ASD",
-                "MarketCountry": "ASD"
-            }
-        }]
-    }
-      
-    useEffect(() => {
-          async function createHoliday(payload) {
+    function HandleAddToFavourites(e) {
+
+        /*fooddata.map((fd) => (
+            favourites.map((df) => (
+                console.log(fd + " | " + df)
+            ))
+        ))*/
+
+        async function createFavourites() {
             const response = await fetch("https://api.airtable.com/v0/appuSOtQ4A8knKIU1/tbl1e1gi4Hl0ClJKC?api_key=keyG5wgdTEwwoo4hS", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(payload),
+              body: JSON.stringify({
+                "records": [{
+                    "fields": {
+                        "FdcId": e.target.name,
+                    }
+                }]
+            }),
             });
             const jsonData = await response.json();
-            addHoliday(jsonData);
-          }
-          createHoliday(payload);
-    }, []);
+            addFavourites(jsonData);
+        }
+
+
+
+          createFavourites();
+    }
 
     return (
         <>
@@ -63,7 +59,7 @@ export default function SearchList(props) {
                 <td>{fd.brandOwner}</td>
                 <td>{fd.brandName}</td>
                 <td>{fd.marketCountry}</td>
-                <td><input type="submit" value={"+"}></input></td>
+                <td><input name={fd.fdcId} type="button" value={"+"} onClick={HandleAddToFavourites}></input></td>
                 </tr>
                 ))}
             </tbody>
