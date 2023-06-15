@@ -33,13 +33,9 @@ export default function FavouriteDetails() {
         getFoodData();
       }, []);
 
-      function HandleDeleteFromFavourites() {
-
-      }
-
       return (
           <>
-          <h1>Search Details</h1><Link to={"../../favourite"}><input type="submit" value={"Back"}></input></Link><input name={foodData.fdcId} type="button" value={"Delete"} onClick={HandleDeleteFromFavourites}></input><br></br>
+          <h1>Search Details</h1><Link to={"../../favourite"}><input type="submit" value={"Back"}></input></Link><br></br>
                 
           <label>{status}</label>
             <table className="details">
