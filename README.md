@@ -59,5 +59,5 @@ For my wireframe, I used Figma to create an initial skeleton of what it will loo
 ![Nutri Journal](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/search%20details.JPG?raw=true)
 
 ## API Used
-- [Food Data Central](https://airtable.com/developers/web/api/introduction)
-- [Airtable](https://fdc.nal.usda.gov/api-guide.html)
+- [Airtable](https://airtable.com/developers/web/api/introduction)
+- [Food Data Central](https://fdc.nal.usda.gov/api-guide.html)
