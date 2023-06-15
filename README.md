@@ -40,7 +40,7 @@ For this project, I used the following technologies:
 - Insomnia
 
 ### Deployment
-![Nutri Journal](https://nutri-journal.vercel.app/)
+[Nutri Journal](https://nutri-journal.vercel.app/)
 
 ### Timeframe
 1.5 Weeks
@@ -51,7 +51,7 @@ For my wireframe, I used Figma to create an initial skeleton of what it will loo
 ![Figma wireframe](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/figma.jpg?raw=true)
 
 ### Trello
-![Trello](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/trello_1.jpg?raw=true)
+![Trello](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/trello.jpg?raw=true)
 
 ### Website screenshots
 ![Nutri Journal](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/comparator.JPG?raw=true)
