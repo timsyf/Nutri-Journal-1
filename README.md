@@ -42,6 +42,9 @@ For this project, I used the following technologies:
 ### Deployment
 [Nutri Journal](https://nutri-journal.vercel.app/)
 
+### Key Learnings
+Through coding with React, fetching data, working with APIs, and managing states, I gained a profound understanding of building dynamic web applications. I learned how to efficiently retrieve and manipulate data from external sources, and utilizing state management to create responsive and interactive user experiences.
+
 ### Timeframe
 1.5 Weeks
 
@@ -58,6 +61,11 @@ For my wireframe, I used Figma to create an initial skeleton of what it will loo
 ![Nutri Journal](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/search.jpg?raw=true)
 ![Nutri Journal](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/search%20details.JPG?raw=true)
 
-## API Used
+### API Used
 - [Airtable](https://airtable.com/developers/web/api/introduction)
 - [Food Data Central](https://fdc.nal.usda.gov/api-guide.html)
+
+### Future Developments and Improvements
+- Adding a delete function to the favourite section to delete from airtable
+- Adding a journal feature that allows user to track their own health (weight, nutrition per day, etc)
+- Use other APIs to provide more information and services to the user
