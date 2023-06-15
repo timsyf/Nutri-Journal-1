@@ -43,6 +43,11 @@ input[type=submit] {
   padding: 10px;
 }
 
+input[type=button] {
+  margin: 10px 0px;
+  padding: 10px;
+}
+
 ul {
   padding: 0;
   margin: 0;
@@ -62,4 +67,34 @@ ul li a {
 
 .compare_ul {
   float: left;
+}
+
+.compareTable {
+  float: left;
+  width: 50%;
+}
+
+.compareTable tr {
+  padding: 10px;
+}
+
+.compareTable tr:nth-child(even) {
+  background-color: #EEE;
+}
+
+.favouriteTable td:nth-child(odd) {
+  background-color: #EEE;
+  padding: 10px;
+}
+
+.details td {
+  padding: 10px;
+}
+
+.details th {
+  padding: 10px;
+}
+
+.details tr:nth-child(odd) {
+  background-color: #EEE;
 }

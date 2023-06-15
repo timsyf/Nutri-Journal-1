@@ -4,18 +4,35 @@ import { useState, useEffect } from "react";
 export default function SearchList(props) {
 
     const [favourites, addFavourites] = useState([]);
+    const [allRecords, setAllRecords] = useState([]);
+    const [status, setStatus] = useState();
 
     const fooddata = props.fd;
 
     function HandleAddToFavourites(e) {
 
-        /*fooddata.map((fd) => (
-            favourites.map((df) => (
-                console.log(fd + " | " + df)
-            ))
-        ))*/
+        async function fetchSearch() {
+            setStatus("loading");
+            try {
+              const response = await fetch("https://api.airtable.com/v0/appuSOtQ4A8knKIU1/tbl1e1gi4Hl0ClJKC?api_key=keyG5wgdTEwwoo4hS");
+              
+              if (!response.ok) {
+                throw new Error("Network response was not OK");
+              }
+      
+              const data = await response.json();
+      
+              setAllRecords(data.records);
+              setStatus("");
+            } catch (error) {
+                setStatus("error");
+            }
+        }
+        fetchSearch();
 
         async function createFavourites() {
+            setStatus("loading");
+            try {
             const response = await fetch("https://api.airtable.com/v0/appuSOtQ4A8knKIU1/tbl1e1gi4Hl0ClJKC?api_key=keyG5wgdTEwwoo4hS", {
               method: "POST",
               headers: {
@@ -29,13 +46,19 @@ export default function SearchList(props) {
                 }]
             }),
             });
+            if (!response.ok) {
+                throw new Error("Network response was not OK");
+              }
+      
             const jsonData = await response.json();
             addFavourites(jsonData);
+            
+            setStatus("");
+            } catch (error) {
+                setStatus("error");
+            }
         }
-
-
-
-          createFavourites();
+        createFavourites();
     }
 
     return (

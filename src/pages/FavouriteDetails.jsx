@@ -33,24 +33,33 @@ export default function FavouriteDetails() {
         getFoodData();
       }, []);
 
+      function HandleDeleteFromFavourites() {
+
+      }
+
       return (
           <>
-          
-          <h1>Search Details</h1><Link to={"../../favourite"}><input type="submit" value={"Back"}></input></Link><br></br>
+          <h1>Search Details</h1><Link to={"../../favourite"}><input type="submit" value={"Back"}></input></Link><input name={foodData.fdcId} type="button" value={"Delete"} onClick={HandleDeleteFromFavourites}></input><br></br>
+                
           <label>{status}</label>
-          <ul>
-            <li><label>ID:</label><br></br><input type="text" name={foodData.fdcId} id={foodData.fdcId} placeholder={foodData.fdcId} readOnly></input></li>
-            <li><label>Description:</label><br></br><input type="text" name={foodData.fdcId} id={foodData.description} placeholder={foodData.description} readOnly></input></li>
-
-            {foodDataNutrients.map((c) => (
-              <div key={Math.random() * 10}>
-                <li>
-                  <label>{c.name}: </label><br></br>
-                  <input type="text" name={c.name} id={c.name} placeholder={c.amount + " " + c.unitName} readOnly></input>
-                </li>
-              </div>
-            ))}
-          </ul>
-          </>
+            <table className="details">
+              <tbody>
+                <tr>
+                  <th>ID</th>
+                  <td>{foodData.fdcId}</td>
+                </tr>
+                <tr>
+                  <th>Description</th>
+                  <td>{foodData.description}</td>
+                </tr>
+                {foodDataNutrients.map((c) => (
+                <tr>
+                  <th>{c.name}</th>
+                  <td>{c.amount + " " + c.unitName}</td>
+              </tr>
+                ))}
+              </tbody>
+            </table>
+        </>
         )
   }
