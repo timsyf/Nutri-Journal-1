@@ -69,3 +69,5 @@ For my wireframe, I used Figma to create an initial skeleton of what it will loo
 - Adding a delete function to the favourite section to delete from airtable
 - Adding a journal feature that allows user to track their own health (weight, nutrition per day, etc)
 - Use other APIs to provide more information and services to the user
+- Improving the UI/UX design of the website
+- Improving user interactive features
