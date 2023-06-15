@@ -36,9 +36,19 @@ For this project, I used the following technologies:
 
 For my wireframe, I used Figma to create an initial skeleton of what it will look like:
 
-![Wireframe Part 1](https://github.com/chrysaliswoon/chrysalis-portfolio/blob/main/src/Image%20Assets/Wireframe.png?raw=true)
+![Figma wireframe](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/figma.jpg?raw=true)
 
----
+### Trello
+
+![Trello](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/trello_1.jpg?raw=true)
+![Trello](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/trello_2.jpg?raw=true)
+![Trello](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/trello_3.jpg?raw=true)
+
+### Trello
+
+![Nutri Journal](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/comparator.jpg?raw=true)
+![Nutri Journal](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/search.jpg?raw=true)
+![Nutri Journal](https://github.com/HaruThePotato/Nutri-Journal/blob/main/src/pictures/trello_3.jpg?raw=true)
 
 ## Planning and Development Process
 
