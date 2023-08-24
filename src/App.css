@@ -78,12 +78,7 @@ ul li a {
   padding: 10px;
 }
 
-.compareTable tr:nth-child(even) {
-  background-color: #EEE;
-}
-
 .favouriteTable td:nth-child(odd) {
-  background-color: #EEE;
   padding: 10px;
 }
 
@@ -95,6 +90,8 @@ ul li a {
   padding: 10px;
 }
 
-.details tr:nth-child(odd) {
-  background-color: #EEE;
+.scrollable-table-container {
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
 }

@@ -1,18 +1,19 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function Favourite() {
+  // AIRTABLE
+  const [allRecords, setAllRecords] = useState([]);
+  const [status, setStatus] = useState([]);
 
-    // AIRTABLE
-    const [allRecords, setAllRecords] = useState([]);
-    const [status, setStatus] = useState([]);
-
-    useEffect(() => {
+  useEffect(() => {
     async function fetchSearch() {
       setStatus("loading");
       try {
-        const response = await fetch("https://api.airtable.com/v0/appuSOtQ4A8knKIU1/tbl1e1gi4Hl0ClJKC?api_key=keyG5wgdTEwwoo4hS");
-        
+        const response = await fetch(
+          "https://api.airtable.com/v0/appuSOtQ4A8knKIU1/tbl1e1gi4Hl0ClJKC?api_key=keyG5wgdTEwwoo4hS"
+        );
+
         if (!response.ok) {
           throw new Error("Network response was not OK");
         }
@@ -22,27 +23,37 @@ export default function Favourite() {
         setAllRecords(data.records);
         setStatus("");
       } catch (error) {
-          setStatus("error");
+        setStatus("error");
       }
     }
     fetchSearch();
   }, []);
 
-    return (
-      <>
+  const uniqueFdcIds = new Set(allRecords.map((fd) => fd.fields.FdcId));
+  const uniqueRecords = allRecords.filter((fd, index, self) => {
+    return index === self.findIndex((t) => t.fields.FdcId === fd.fields.FdcId);
+  });
+
+  return (
+    <>
       <h1>Favourite</h1>
       <label>{status}</label>
-      <table className="favouriteTable">
+
+      <div className="scrollable-table-container">
+        <table className="table table-striped table-bordered">
           <tbody>
-              <tr>
-              {allRecords.map((fd) => (
-              <td><Link to={"./details/" + fd.fields.FdcId}>{fd.fields.FdcId}</Link></td>
-              ))}
+            {uniqueRecords.map((fd) => (
+              <tr key={fd.fields.FdcId}>
+                <td>
+                  <Link to={"./details/" + fd.fields.FdcId}>
+                    {fd.fields.description}
+                  </Link>
+                </td>
               </tr>
+            ))}
           </tbody>
         </table>
-
-      </>
-    );
-  }
-  
+      </div>
+    </>
+  );
+}
